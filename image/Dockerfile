@@ -8,6 +8,6 @@ RUN apt-get -qq update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY custom-entrypoint.sh /
-RUN chgrp 0 /custom-entrypoint.sh  && chmod g+rwX /custom-entrypoint.sh
+RUN chgrp 0 /custom-entrypoint.sh  && chmod g+rwx /custom-entrypoint.sh
 ENTRYPOINT ["/custom-entrypoint.sh"]
 CMD ["cassandra", "-f"]
