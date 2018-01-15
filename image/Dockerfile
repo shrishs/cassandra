@@ -15,6 +15,6 @@ RUN chgrp 0 /ready-probe.sh  && chmod g+rwx /ready-probe.sh
 RUN chgrp 0 /custom-entrypoint.sh  && chmod g+rwx /custom-entrypoint.sh
 ##RUN chgrp 0 /docker1-entrypoint.sh  && chmod g+rwx /docker1-entrypoint.sh
 ENTRYPOINT ["/custom-entrypoint.sh"]
-##CMD ["cassandra", "-f"]
-CMD ["cassandra", "-R"]
+CMD ["cassandra", "-f"]
+##CMD ["cassandra", "-R"]
 ##CMD ["-R"]
