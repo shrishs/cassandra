@@ -21,4 +21,5 @@ if [ ! -z "$CASSANDRA_SEEDS" ]; then
 fi
 
 ## /docker-entrypoint.sh "$@"
-exec /docker1-entrypoint.sh  "$@"
+exec /docker-entrypoint.sh "$@"
+##exec /docker1-entrypoint.sh  "$@"
