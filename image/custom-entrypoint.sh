@@ -20,4 +20,5 @@ if [ ! -z "$CASSANDRA_SEEDS" ]; then
     export CASSANDRA_SEEDS
 fi
 
-/docker-entrypoint.sh "$@"
+## /docker-entrypoint.sh "$@"
+exec /docker-entrypoint.sh 
