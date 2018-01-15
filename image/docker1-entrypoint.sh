@@ -4,11 +4,11 @@ set -e
 # first arg is `-f` or `--some-option`
 # or there are no args
 if [ "$#" -eq 0 ] || [ "${1#-}" != "$1" ]; then
-        echo "insideeeeeeeeeeeeeeeeeeearg CASSANDRA_DC  ::"CASSANDRA_DC
+        echo "insideeeeeeeeeeeeeeeeeeearg CASSANDRA_DC  ::"$CASSANDRA_DC
 	set -- cassandra -f "$@"
 fi
 
-        echo "outsideeeeeeeeeeeeeeeeeeeeargCASSANDRA_DC  ::"CASSANDRA_DC
+        echo "outsideeeeeeeeeeeeeeeeeeeeargCASSANDRA_DC  ::"$CASSANDRA_DC
 # allow the container to be started with `--user`
 if [ "$1" = 'cassandra' -a "$(id -u)" = '0' ]; then
 	chown -R cassandra /var/lib/cassandra /var/log/cassandra "$CASSANDRA_CONFIG"
