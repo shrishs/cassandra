@@ -31,18 +31,18 @@ spec:
           name: cql
         resources:
           limits:
-            cpu: "6000m"
-            memory: 16Gi
+            cpu: "500m"
+            memory: 1Gi
           requests:
-           cpu: "6000m"
-           memory: 16Gi
+           cpu: "500m"
+           memory: 1Gi
         lifecycle:
           preStop:
             exec:
               command: ["/bin/sh", "-c", "nodetool decommission && sleep 25"]
         env:
           - name: MAX_HEAP_SIZE
-            value: 8G
+            value: 512M
           - name: HEAP_NEWSIZE
             value: 100M
           - name: PEER_DISCOVERY_SERVICE
@@ -83,10 +83,11 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: cassandra-data
-      annotations:
-        volume.beta.kubernetes.io/storage-class: fast
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 512Gi
+          storage: 1Gi
+      selector:
+        matchLabels:
+          volume-type: local
