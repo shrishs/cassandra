@@ -17,12 +17,16 @@ oc get is
 NAME            DOCKER REPO                                                TAGS      UPDATED
 
 cassandra       docker-registry.default.svc:5000/cassandra/cassandra       3.0.15    9 minutes ago
+
 cassandraprod   docker-registry.default.svc:5000/cassandra/cassandraprod   latest    2 minutes ago
+
 
 --Label the node ,where cassandra pods are suppse to reside.
 
 oc label node node1.internal region=cassandra
+
 oc label node node2.internal region=cassandra
+
 oc label node node3.internal region=cassandra
 
 
@@ -43,7 +47,9 @@ oc create -f cassandra-statefulset-withstorage.yaml
 oc get pods -o wide -w |grep cassandra-
 
 cassandra-0   1/1       Running   7          1h        10.1.4.26   node2.3577.internal
+
 cassandra-1   1/1       Running   2         1h        10.1.2.34   node1.3577.internal
+
 cassandra-2   1/1       Running   4         1h        10.1.4.27   node2.3577.internal
 
 --oc get statefulset 
@@ -63,8 +69,11 @@ Status=Up/Down
 --  Address    Load       Tokens       Owns (effective)  Host ID                               Racka
 
 UN  10.1.2.34  197.88 KB  256          67.3%             e36cca58-1a0e-452f-9491-14e32e4e7cc4  Rack1-K8Demo
+
 UN  10.1.4.27  197.69 KB  256          66.1%             d878fe73-9b35-4440-a354-ae744d828dcf  Rack1-K8Demo
+
 UN  10.1.4.26  182.24 KB  256          66.6%             482cf226-8129-4444-97b1-68e27b5645bc  Rack1-K8Demo
+
 
 
 ---Increase/Decrease number of replica
@@ -76,9 +85,13 @@ oc edit statefulset cassandra
 oc get pods -o wide -w |grep cassandra-
 
 cassandra-0   1/1       Running   7          2h        10.1.4.26   node2.3577.internal
+
 cassandra-1   1/1       Running   2         2h        10.1.2.34   node1.3577.internal
+
 cassandra-2   1/1       Running   4         2h        10.1.4.27   node2.3577.internal
+
 cassandra-3   0/1       Running   0         1m        10.1.2.35   node1.3577.internal
+
 
 
 oc get pvc
@@ -86,8 +99,11 @@ oc get pvc
 NAME                         STATUS    VOLUME      CAPACITY   ACCESSMODES   STORAGECLASS   AGE
 
 cassandra-data-cassandra-0   Bound     mylocal-0   4Gi        RWO                          2h
+
 cassandra-data-cassandra-1   Bound     mylocal-1   4Gi        RWO                          2h
+
 cassandra-data-cassandra-2   Bound     mylocal-2   4Gi        RWO                          2h
+
 cassandra-data-cassandra-3   Bound     mylocal-3   4Gi        RWO                          7m
 
 
@@ -96,14 +112,18 @@ cassandra-data-cassandra-3   Bound     mylocal-3   4Gi        RWO               
 
 Datacenter: DC1-K8Demo
 ======================
+
 Status=Up/Down
 |/ State=Normal/Leaving/Joining/Moving
 
 --  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
 
 UN  10.1.2.35  102.61 KB  256          49.5%             5db5a370-f962-4847-9a68-c4e5a760a1ff  Rack1-K8Demo
+
 UN  10.1.2.34  246.62 KB  256          51.2%             e36cca58-1a0e-452f-9491-14e32e4e7cc4  Rack1-K8Demo
+
 UN  10.1.4.27  241.48 KB  256          48.2%             d878fe73-9b35-4440-a354-ae744d828dcf  Rack1-K8Demo
+
 UN  10.1.4.26  231.38 KB  256          51.1%             482cf226-8129-4444-97b1-68e27b5645bc  Rack1-K8Demo
 
 
@@ -114,7 +134,9 @@ UN  10.1.4.26  231.38 KB  256          51.1%             482cf226-8129-4444-97b1
 oc get pods -o wide -w |grep cassandra-
 
 cassandra-0   1/1       Running   7          2h        10.1.4.26   node2.3577.internal
+
 cassandra-1   1/1       Running   2         2h        10.1.2.34   node1.3577.internal
+
 cassandra-2   1/1       Running   4         2h        10.1.4.27   node2.3577.internal
 
 
@@ -130,7 +152,9 @@ Status=Up/Down
 --  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
 
 UN  10.1.2.34  251.75 KB  256          67.3%             e36cca58-1a0e-452f-9491-14e32e4e7cc4  Rack1-K8Demo
+
 UN  10.1.4.27  246.61 KB  256          66.1%             d878fe73-9b35-4440-a354-ae744d828dcf  Rack1-K8Demo
+
 UN  10.1.4.26  236.5 KB   256          66.6%             482cf226-8129-4444-97b1-68e27b5645bc  Rack1-K8Demo
 
 
