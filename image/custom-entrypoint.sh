@@ -19,7 +19,7 @@ CASSANDRA_SEEDS=$(host $PEER_DISCOVERY_SERVICE | \
 if [ ! -z "$CASSANDRA_SEEDS" ]; then
     export CASSANDRA_SEEDS
 fi
-echo -XX:cassandra.override_decommission=true >>/etc/cassandra/jvm.options
+echo -Dcassandra.override_decommission=true >>/etc/cassandra/jvm.options
 
 ## /docker-entrypoint.sh "$@"
 exec /docker-entrypoint.sh "$@"
