@@ -1,5 +1,5 @@
-# cassandra
---Create a new Project
+## creating cassandraa statefulsset
+--  Create a new Project
 
 oc new-project cassandra
 
@@ -168,13 +168,14 @@ UN  10.1.4.26  236.5 KB   256          66.6%             482cf226-8129-4444-97b1
 After the storage cleanup ,pod will come up and will keep on running with restricted scc as before
 
 --cassandra.override_decommission=true is at the moment permamnently set but this can be parametrerized.
+
 due to above parameter  ,pod will come up and will run as anuid scc 
 
 Make sure to execute the following command.
 
 oadm policy add-scc-to-user anyuid -z default
 
----Loading Initial Schema
+###Loading Initial Schema
 
 Initial Schema is uploaded using the configMap.It consist of two kind of file.
 
@@ -185,13 +186,18 @@ schema-populate.sh: Execute the above two cql and provide logic so that schema.c
 
 
 --Creating configMap
+
 oc create configmap dboperation --from-file=schema.cql --from-file=validation.cql --from-file=schema-populate.sh 
 
 --updating configmap
+
 oc create configmap dboperation --from-file=schema.cql --from-file=validation.cql --from-file=schema-populate.sh --dry-run -o yaml |oc replace -f -
+
 -updation takes around 45 secs to reflect changes in pod.
 
 --One can check the log as follows.
+
 oc exec cassandra-0 -- cat /schema.log
+
 oc exec cassandra-0 -- cat /validation.log
 
