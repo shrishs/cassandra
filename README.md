@@ -177,7 +177,9 @@ oadm policy add-scc-to-user anyuid -z default
 Initial Schema is uploaded using the configMap.It consist of two kind of file.
 
 schema.cql:Contains all the definition to be loaded.
+
 validation.cql:Contains query so that it can determine if the definition from schema.cql has already been uploaded.
+
 schema-populate.sh: Execute the above two cql and provide logic so that schema.cql is run only once.
 
 
