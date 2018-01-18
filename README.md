@@ -62,7 +62,6 @@ cassandra   3         3         2h
 oc exec cassandra-0 -- nodetool status
 
 Datacenter: DC1-K8Demo
-======================
 Status=Up/Down
 |/ State=Normal/Leaving/Joining/Moving
 
@@ -111,7 +110,6 @@ cassandra-data-cassandra-3   Bound     mylocal-3   4Gi        RWO               
  oc exec cassandra-0 -- nodetool status
 
 Datacenter: DC1-K8Demo
-======================
 
 Status=Up/Down
 |/ State=Normal/Leaving/Joining/Moving
@@ -144,7 +142,6 @@ cassandra-2   1/1       Running   4         2h        10.1.4.27   node2.3577.int
 oc exec cassandra-0 -- nodetool status
 
 Datacenter: DC1-K8Demo
-======================
 
 Status=Up/Down
 |/ State=Normal/Leaving/Joining/Moving
@@ -175,7 +172,7 @@ Make sure to execute the following command.
 
 oadm policy add-scc-to-user anyuid -z default
 
-###Loading Initial Schema
+## Loading Initial Schema
 
 Initial Schema is uploaded using the configMap.It consist of two kind of file.
 
