@@ -37,6 +37,9 @@ spec:
            cpu: "500m"
            memory: 1Gi
         lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "/dbschema/schema-populate.sh"]
           preStop:
             exec:
               command: ["/bin/sh", "-c", "nodetool decommission && sleep 25"]
@@ -72,11 +75,17 @@ spec:
           mountPath: /var/lib/cassandra
         - name: cassandra-logs
           mountPath: /var/log/cassandra
+        - name: dbschema
+          mountPath: /dbschema
       nodeSelector:
         region: cassandra
       volumes:
       - name: cassandra-logs
         emptyDir: {}
+      - name: dbschema
+        configMap:
+          name: dboperation
+          defaultMode: 0744
   # These are converted to volume claims by the controller
   # and mounted at the paths mentioned above.
   # do not use these in production until ssd GCEPersistentDisk or other ssd pd

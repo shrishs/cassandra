@@ -173,3 +173,25 @@ due to above parameter  ,pod will come up and will run as anuid scc
 Make sure to execute the following command.
 
 oadm policy add-scc-to-user anyuid -z default
+
+---Loading Initial Schema
+
+Initial Schema is uploaded using the configMap.It consist of two kind of file.
+
+schema.cql:Contains all the definition to be loaded.
+validation.cql:Contains query so that it can determine if the definition from schema.cql has already been uploaded.
+schema-populate.sh: Execute the above two cql and provide logic so that schema.cql is run only once.
+
+
+
+--Creating configMap
+oc create configmap dboperation --from-file=schema.cql --from-file=validation.cql --from-file=schema-populate.sh 
+
+--updating configmap
+oc create configmap dboperation --from-file=schema.cql --from-file=validation.cql --from-file=schema-populate.sh --dry-run -o yaml |oc replace -f -
+-updation takes around 45 secs to reflect changes in pod.
+
+--One can check the log as follows.
+oc exec cassandra-0 -- cat /schema.log
+oc exec cassandra-0 -- cat /validation.log
+
